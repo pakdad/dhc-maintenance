@@ -25,35 +25,9 @@ www.northwestern.edu
 +1 563-543-2813
 """
 # %%
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib import style
-import pickle
-import dhc_maintenance.simulation as simulation
-import dhc_maintenance.toolkit as toolkit
-from matplotlib.animation import FuncAnimation
-import matplotlib.animation as animation
-import os
-import dhc_maintenance.pipe as pipe
-from cProfile import label
-import chart_studio.plotly as py
-import plotly.graph_objs as go
-import plotly as plotly
 import numpy as np
+import dhc_maintenance.simulation as simulation
 import matplotlib.pylab as plt
-from imblearn.over_sampling import SMOTE
-from imblearn.over_sampling import SMOTENC
-import xgboost as xgb
-from xgboost.sklearn import XGBClassifier
-from sklearn import metrics
-from sklearn.preprocessing import LabelEncoder
-import types
-import seaborn as sns
-from datetime import datetime
-from scipy import stats
-from IPython import display
-import dhc_maintenance.maintenance as maintenance
-
 
 # %%
 ## Backward simulation
@@ -138,7 +112,8 @@ ax.legend()
 ax.set_xlabel('Date')
 ax.set_ylabel('Temperature (°C)')
 fig.tight_layout()
-fig.savefig('fig/Artificial1.png', dpi='figure', format='png',)
+# fig.savefig('fig/Artificial1.png', dpi='figure', format='png',)
 # %%
-with open('data/temperature_dummy.csv','w') as csv:
+with open('data/temperature_dummy_test.csv','w') as csv:
     network_temp_artificial.to_csv(csv)
+# %%
