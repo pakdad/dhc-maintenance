@@ -5,7 +5,7 @@ from datetime import datetime
 import rainflow as rf
 from ftplib import FTP
 import requests
-import toolkit as tools
+from . import toolkit as tools
 import os
 import copy
 from sklearn import preprocessing
@@ -19,9 +19,6 @@ style.use('ggplot')
 
 
 # %%
-
-
-
 class Weather:
     """Weather object to retrieve data from DWD ftp server."""
     
@@ -69,8 +66,8 @@ class Weather:
 
     def search_station_ID(self, search):
         '''Finds station ID from search'''
-        return self.cities_to_ids[search.lower()]
-        #return self.dwd.loc[self.dwd["Stationsname"].str.contains(search, na=False, case=False)]
+        # return self.cities_to_ids[search.lower()]
+        return self.dwd.loc[self.dwd["Stationsname"].str.contains(search, na=False, case=False)]
         
     def load_weather(self, ID):
         '''Loads weather data from specific ID'''

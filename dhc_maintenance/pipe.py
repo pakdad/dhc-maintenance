@@ -4,7 +4,7 @@ from datetime import datetime
 import rainflow as rf
 from ftplib import FTP
 import requests
-import toolkit as tools
+from . import toolkit as tools
 import os
 import copy
 from sklearn import preprocessing
@@ -25,8 +25,6 @@ class PipeSystem(Enum):
     PMR = 4
     SMR = 5
     FLE = 6
-
-
 
 class MedPipeCount(Enum):
     '''Number of pipes in system'''
@@ -119,9 +117,6 @@ class PipeDNCat(Enum):
     L = 2
     XL = 3
     XXL =4
-
-
-
 
 class Pipe:
     """Create pipe object and evaluate the pipe attributes."""

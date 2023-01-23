@@ -12,8 +12,6 @@ from sklearn import preprocessing
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
-
-
 class Tools:
     """Some tools for data analysis that will be used for all the networks."""
     def __init__(self):
