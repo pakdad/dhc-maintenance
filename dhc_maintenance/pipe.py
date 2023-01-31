@@ -64,8 +64,9 @@ class Failure(Enum):
 
 class FailureLevels(Enum):
     '''Is the failure significant?'''
-    Trivial = 0
-    Substantial = 1
+    NoFailure = 0
+    Trivial = 1
+    Substantial = 2
 
 class FailurePart(Enum):
     '''Tells which part failed'''

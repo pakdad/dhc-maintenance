@@ -66,88 +66,13 @@ network.weather.search_station_ID('hamburg')
 # %%
 network.weather.load_weather("01975")
 # %%
-df_artificial = network.weather.data.sort_index()
-# %%
-network_temp_artificial = df_artificial.loc['2018-01-01 00:00:00':'2021-12-31 23:00:00']
-# %%
-rng = np.random.default_rng(seed=5)
-# %%
-# y = mx + b
-# b = 110
-# m = (80-110)/15
-# %%
-def gliding_sup_temp(temp):
-    # y = mx + b
-    b = 110
-    m = (80-110)/15
-    if temp >= 15:
-        return 80
-    elif temp < 15 and temp > -10:
-        y = m*temp + b
-        return round(y,2)
-    else:
-        return 130
-# %%
-# y = mx + b
-# b = 60
-# m = (55-60)/15
-# %%
-def gliding_ret_temp(temp):
-    # y = mx + b
-    b = 60
-    m = (55-60)/15
-    if temp >= 15:
-        return 55
-    elif temp < 15 and temp > -10:
-        y = m*temp + b
-        return round(y,2)
-    else:
-        return 65
-# %%
-network_temp_artificial['Supply'] = network_temp_artificial['Out_Temp'].apply(gliding_sup_temp)
-network_temp_artificial['Return'] = network_temp_artificial['Out_Temp'].apply(gliding_ret_temp)
-
-# %%
-network_temp_artificial = network_temp_artificial[['Supply', 'Return']]
-network_temp_artificial
-# %%
-np.random.seed(5)
-rand_sup = np.round(np.random.uniform(-5,5,(network_temp_artificial.shape[0])),2)
-rand_ret = np.round(np.random.uniform(-2.5,2.5,(network_temp_artificial.shape[0])))
-# %%
-network_temp_artificial['Supply'] += rand_sup
-network_temp_artificial['Return'] += rand_ret
-# %%
-network_temp_artificial
-# %%
-fig, ax = plt.subplots(figsize=(7,3), dpi=300)
-ax.plot(network_temp_artificial['Supply'], color='r', label='Supply', linewidth=.1)
-ax.plot(network_temp_artificial['Return'], color='steelblue', label='Return', linewidth=.1)
-ax.grid(linestyle='--')
-ax.legend()
-ax.set_xlabel('Date')
-ax.set_ylabel('Temperature (°C)')
-fig.tight_layout()
-fig.savefig('fig/Artificial.png', dpi='figure', format='png',)
-# %%
-fig, ax = plt.subplots(figsize=(7,3), dpi=300)
-ax.plot(network_temp_artificial['Supply'].loc['2020-01-01 00:00:00':'2020-12-31 23:00:00'], color='r', label='Supply', linewidth=.5)
-ax.plot(network_temp_artificial['Return'].loc['2020-01-01 00:00:00':'2020-12-31 23:00:00'], color='steelblue', label='Return', linewidth=.5)
-ax.grid(linestyle='--')
-ax.legend()
-ax.set_xlabel('Date')
-ax.set_ylabel('Temperature (°C)')
-fig.tight_layout()
-fig.savefig('fig/Artificial1.png', dpi='figure', format='png',)
-# %%
-with open('data/temperature_dummy.csv','w') as csv:
-    network_temp_artificial.to_csv(csv)
+network.load_temperature_changes("data/temperature_dummy.csv")
 # %%
 tools = toolkit.Tools()
 # %%
-tools.statistical_analyser(network.temperature_timeserie)
+tools.statistical_analyser(network.temperature_changes)
 # %%
-years = tools.extract_years(network.temperature_timeserie)
+years = tools.extract_years(network.temperature_changes)
 # %%
 network.weather.data
 # %%
@@ -155,16 +80,34 @@ network.weather.data.index.is_unique
 # %%
 network.temperature_changes.index.is_unique
 # %%
+network.concat()
+# %%
 # the corr method will plot the correlation of our vrabiales
 # this will make it easy for us for feature selection
 network.corr()
 # %%
 network.corr("spearman")
 # %%
+# based on our correlation plot we can drop the not intereted
+# features and clean the datafram (nan values) for our training
+col_list = ['Precipitaion_height', 'Precipitation_index', 'Precipitation_form']
+network.drop_clean(col_list)
+# %%
+# This method will backward simulate up to the availabe
+# historical temperature data
+network.simulate()
+# %%
+# The optimize method is in testing phase now
+# it is not necessary to run it but it is recommended
+network.optimize()
+# %%
+print(network.supply_simulate.trainer.accuracy)
+print(network.return_simulate.trainer.accuracy)
+# %%
+len(network.supply_training_set[1])
+# %%
 # Import inventory
-CITY = "Hannover"
-CITY = CITY.title()
-path = "data/" + CITY + "/inventory.pickle"
+path = "data/inventory_dummy.pickle"
 with open(path, 'rb') as inventory:
     inventory = pickle.load(inventory)
 
@@ -175,29 +118,29 @@ inventory.head()
 object_inventory = {}
 # in this analysis we are interested in Kunststoffmantelrohr
 # therefore we filter them based on their type
-city_abr = CITY[0:3].upper()
-for i in inventory.loc[inventory.Type == 'KMR'].iterrows():
-    # Useing KMR class to instantiate pipe objects
-    object_inventory[city_abr + str(i[0])] = pipe.KMR(
-    ID=int(i[1][1]),
-    TYPE=pipe.PipeSystem(2),
-    medium_count=pipe.MedPipeCount(1),
-    dn=i[1][2],
-    laying=i[1][3],
-    length=i[1][4],
-    flow=i[1][5],
-    build_year=i[1][6],
-    connection=i[1][7],
-    life_status=i[1][8],
-    failure_years=i[1][9],
-    failure_degrees=i[1][10],
-    failure_types=i[1][11],
-    decommission_year=i[1][12],
-    )
 # %%
-exeptions = ['HAN25437']
+for i in range(1000):
+    # Useing KMR class to instantiate pipe objects
+    object_inventory["HH-" + str(inventory.iloc[i]['ID'])] = pipe.KMR(
+    ID=inventory.iloc[i]['ID'],
+    TYPE=pipe.PipeSystem[inventory.iloc[i]['Type']],
+    medium_count=pipe.MedPipeCount(1),
+    dn=inventory.iloc[i]['DN'],
+    laying=pipe.LayingSystem[inventory.iloc[i]['Laying System']],
+    length=inventory.iloc[i]['Length'],
+    flow=pipe.Flow[inventory.iloc[i]['Flow']],
+    build_year=inventory.iloc[i]['Build Year'],
+    connection=pipe.PipeConnection[inventory.iloc[i]['Connection']],
+    # here we set 10% chance that the pipe is decomissioned
+    life_status=pipe.Status[inventory.iloc[i]['Life Status']],
+    failure_years=inventory.iloc[i]['Failure Year'],
+    failure_degrees=[pipe.FailureLevels[inventory.iloc[i]['Failure Degree'][0]]],
+    failure_types=[pipe.FailureType[inventory.iloc[i]['Failure Types'][0]]],
+    decommission_year=inventory.iloc[i]['Decommission Year'],
+    )
 
 # %%
+# This takes a while
 exeptions = []
 for key, value in object_inventory.items():
     try:
@@ -221,6 +164,7 @@ for value in object_inventory.values():
 # %%
 length_object = []
 for key, value in object_inventory.items():
+    print(key)
     value.evaluate(network)
     length_object.append((key, len(value.dataframe().columns)))
 
@@ -245,12 +189,12 @@ inventory_analysis.head()
 # %% MAINTENANCE ____________________________________
 
 # Import inventory_analysis
-A = "Hannover"
+A = "Hamburg"
 # %%
-#with open('data/Hannover/inventory_dummy.csv','w') as csv:
+#with open('data/Hamburg/inventory_dummy.csv','w') as csv:
 #    inventory_A.to_csv(csv)
 # %%
-#test = pd.read_csv('data/Hannover/inventory_dummy.csv', sep=',', decimal=',')
+#test = pd.read_csv('data/Hamburg/inventory_dummy.csv', sep=',', decimal=',')
 
 # %%
 inventory_A = inventory_analysis

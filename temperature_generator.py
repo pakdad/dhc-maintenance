@@ -114,6 +114,8 @@ ax.set_ylabel('Temperature (°C)')
 fig.tight_layout()
 # fig.savefig('fig/Artificial1.png', dpi='figure', format='png',)
 # %%
-with open('data/temperature_dummy_test.csv','w') as csv:
+network_temp_artificial.index = network_temp_artificial.index.strftime('%Y%m%d%H')
+# %%
+with open('data/temperature_dummy.csv','w') as csv:
     network_temp_artificial.to_csv(csv)
 # %%
