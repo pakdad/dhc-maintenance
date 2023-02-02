@@ -17,17 +17,18 @@ The following libraries and packages are required to run the model:
 
 ## Usage
 1. Clone the repository to your local machine:
-
+```css
 git clone https://github.com/<your-username>/predictive-maintenance-pipes.git
+```
 
 2. Navigate to the project directory:
-
+```css
 cd predictive-maintenance-pipes
-
+```
 3. Run the `main.py` file:
-
+```css
 python main.py
-
+```
 ## Funding
 This project was funded by The Federal Ministry for Economic Affairs and Climate Action (BMWK).
 
