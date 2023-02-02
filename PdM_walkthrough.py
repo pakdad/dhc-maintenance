@@ -1,30 +1,6 @@
-"""
-Walking through PdM
-
-Research Project Instandhaltung-FW
-Project Number 03ET1625B
-__________________
-Pakdad Pourbozorgi Langroudi, M.Sc.
-wissenschaftlicher Mitarbeiter / Research Associate
-
-HafenCity Universität Hamburg (HCU)
-Henning-Voscherau-Platz 1, 20457 Hamburg, Raum 5.008
-
-pakdad.langroudi@hcu-hamburg.de
-www.hcu-hamburg.de
-+49 (0)40 42827-5332
-
-Will Hoffmann
-Research Assistant
-
-Northwestern University
-633 Clark St, Evanston, IL 60208, USA
-
-willhoffmann2024@u.northwestern.edu
-www.northwestern.edu
-+1 563-543-2813
-"""
+# Walking through District Heating Pipe Predictive Maintenance
 # %%
+# import necessary libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import style
@@ -107,10 +83,15 @@ print(network.return_simulate.trainer.accuracy)
 len(network.supply_training_set[1])
 # %%
 # Import inventory
-path = "data/inventory_dummy.pickle"
-with open(path, 'rb') as inventory:
-    inventory = pickle.load(inventory)
-
+path = "data/inventory_dummy.csv"
+with open(path, 'r') as inventory:
+    inventory = pd.read_csv(inventory,
+                            index_col=0,
+                            converters={"Failure Year": lambda x: [int(i.strip("[]").replace('"','')) for i in x.split(",")],
+                                        "Failure Degree": lambda x: x.strip("[]").replace("'","").split(", "),
+                                        "Failure Types": lambda x: x.strip("[]").replace("'","").split(", "),
+                                        },
+                            )
 # %%
 inventory.head()
 # %%
@@ -283,7 +264,5 @@ maint_obj.fit(model = xgb0)
 maint_obj.evaluate()
 
 maint_obj.feature_importance()
-
-
 
 # %%

@@ -31,6 +31,9 @@ import random
 import dhc_maintenance.pipe as pipe
 import matplotlib.pylab as plt
 import pickle
+
+# %%
+random.seed(2022)
 # %%
 def sample_maker(df, col, k=1):
     """Generate a weighted sample according to a dataframe"""
@@ -132,6 +135,6 @@ inventory = pd.DataFrame(inventory)
 inventory.head()  
 
 # %%
-with open("data/inventory_dummy.pickle", "wb") as file:
-    pickle.dump(inventory, file)
+with open("data/inventory_dummy.csv", "w") as file:
+    inventory.to_csv(file)
 # %%
