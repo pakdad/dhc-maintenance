@@ -1,38 +1,41 @@
 # dhc_maintenance
+# Predictive Maintenance of Pre-Insulated Bounded Pipes in District Heating
 
-Predictive Maintenance of Pre-Insulated Bounded Pipes in District Heating
 This project aims to provide a predictive maintenance solution for the pre-insulated bounded pipes used in district heating systems. The solution is implemented using a Python model.
 
-Overview
+## Overview
 Pre-insulated bounded pipes are an important component of district heating systems, as they are used to transport hot water from the central heating plant to individual buildings. Regular maintenance is necessary to ensure the optimal performance and longevity of these pipes. However, traditional maintenance methods are reactive and can result in unexpected downtime and repair costs.
 
 To address this issue, this project provides a predictive maintenance solution based on machine learning algorithms. The model analyzes various parameters such as temperature, pressure, and flow rate, to predict the condition of the pipes and proactively schedule maintenance when necessary.
 
-Requirements
+## Requirements
 The following libraries and packages are required to run the model:
+- NumPy
+- Pandas
+- Scikit-learn
+- Matplotlib
 
-NumPy
-Pandas
-Scikit-learn
-Matplotlib
-Usage
-Clone the repository to your local machine:
-bash
-Copy code
+## Usage
+1. Clone the repository to your local machine:
+
 git clone https://github.com/<your-username>/predictive-maintenance-pipes.git
-Navigate to the project directory:
-bash
-Copy code
+
+2. Navigate to the project directory:
+
 cd predictive-maintenance-pipes
-Run the main.py file:
-css
-Copy code
+
+3. Run the `main.py` file:
+
 python main.py
-Funding
+
+## Funding
 This project was funded by The Federal Ministry for Economic Affairs and Climate Action (BMWK).
 
-Contact
+## Contact
 For any questions or inquiries, please contact the project lead at <your-email-address>.
+
+
+
 
 """
 Predictive Maintenance for District Heating Pipes
