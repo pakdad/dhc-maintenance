@@ -39,30 +39,30 @@ Developed by:
 __________________
 Pakdad Pourbozorgi Langroudi, M.Sc.  
 wissenschaftlicher Mitarbeiter / Research Associate  
-  
+
 HafenCity Universität Hamburg (HCU)  
 Henning-Voscherau-Platz 1, 20457 Hamburg, Raum 5.008  
-  
+
 pakdad.langroudi@hcu-hamburg.de  
 www.hcu-hamburg.de  
 +49 (0)40 42827-5332  
 __________________
 Univ.-Prof. Dr.-Ing. Ingo Weidlich  
 Technisches Infrastrukturmanagement  
-  
+
 HafenCity Universität Hamburg (HCU)  
 Henning-Voscherau-Platz 1, 20457 Hamburg, Raum 5.007  
-  
+
 ingo.weidlich@hcu-hamburg.de  
 www.hcu-hamburg.de  
 +49 (0)40 42827-5700  
 __________________
 Will Hoffmann  
 Research Assistant  
-  
+
 Northwestern University  
 633 Clark St, Evanston, IL 60208, USA  
-  
+
 willhoffmann2024@u.northwestern.edu  
 www.northwestern.edu  
 +1 563-543-2813  
@@ -71,5 +71,5 @@ www.northwestern.edu
 We would like to extend a special thanks to the Federal Ministry for Economic Affairs and Climate Action (BMWK) for funding our project "Instandhaltung-FW" (Project Number: 03ET1625B).
 
 Special thanks to Shad Griffin for his great article and support.
-For more information on the topic please see the following article.
+For more information on the topic please see the following article.  
 https://medium.com/swlh/machine-learning-for-equipment-failure-prediction-and-predictive-maintenance-pm-e72b1ce42da1
