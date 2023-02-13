@@ -36,12 +36,6 @@ For any questions or inquiries, please contact the project lead at pakdad.langro
 
 
 
-
-"""
-Predictive Maintenance for District Heating Pipes
-
-Walking through District Heating Pipe Predictive Maintenance
-
 Research Project Instandhaltung-FW
 Project Number 03ET1625B
 Funded by: The Federal Ministry for Economic Affairs and Climate Action (BMWK)
@@ -77,7 +71,7 @@ Northwestern University
 willhoffmann2024@u.northwestern.edu
 www.northwestern.edu
 +1 563-543-2813
-"""
+
 ## Acknowledgments
 Thanks to Shad Griffin for his great article and support.
 For more information on the topic please see the following article.
