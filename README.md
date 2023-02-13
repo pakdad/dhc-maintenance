@@ -78,7 +78,7 @@ willhoffmann2024@u.northwestern.edu
 www.northwestern.edu
 +1 563-543-2813
 """
-# Adopted from: Machine Learning for Equipment Failure Prediction and Predictive Maintenance (PM) by Shad Griffin
-# For more information on the topic please see the following article.
-# https://medium.com/swlh/machine-learning-for-equipment-failure-prediction-and-predictive-maintenance-pm-e72b1ce42da1
-# Published July 2020, Greatly revised February 2021.
+## Acknowledgments
+Thanks to Shad Griffin for his great article and support.
+For more information on the topic please see the following article.
+https://medium.com/swlh/machine-learning-for-equipment-failure-prediction-and-predictive-maintenance-pm-e72b1ce42da1
