@@ -11,8 +11,13 @@ To address this issue, this project provides a predictive maintenance solution b
 The following libraries and packages are required to run the model:
 - NumPy
 - Pandas
+- Rainflow
 - Scikit-learn
 - Matplotlib
+- Request
+- Seaborn
+- Imblearn
+- Xgboost
 
 ## Usage
 1. Clone the repository to your local machine:

@@ -5,9 +5,9 @@
 # %%
 import copy
 import os
-from attr import Attribute
-import plotly.graph_objs as go
-import plotly as plotly
+# from attr import Attribute
+# import plotly.graph_objs as go
+# import plotly as plotly
 import pandas as pd
 import numpy as np
 import matplotlib.pylab as plt
@@ -23,11 +23,11 @@ import pandas as pd
 import pickle
 import seaborn as sns
 from datetime import datetime
-from scipy import stats
+# from scipy import stats
 from matplotlib.animation import FuncAnimation
-from IPython import display
-from cProfile import label
-import chart_studio.plotly as py
+# from IPython import display
+# from cProfile import label
+# import chart_studio.plotly as py
 from pandas.api.types import is_numeric_dtype
 # %%
 pd.set_option('display.max_columns', None)
