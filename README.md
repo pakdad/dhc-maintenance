@@ -37,7 +37,7 @@ jupyter notebook
 This project was funded by The Federal Ministry for Economic Affairs and Climate Action (BMWK).
 
 ## Contact
-For any questions or inquiries, please contact the project lead at pakdad.langroudi@hcu-hamburg.de.
+For any questions or inquiries, please contact pakdad.langroudi@hcu-hamburg.de
 
 
 Developed by:  
