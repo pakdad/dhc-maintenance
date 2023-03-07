@@ -29,9 +29,9 @@ git clone https://github.com/pakdad/dhc-maintenance.git
 ```css
 cd dhc-maintenance
 ```
-3. Run the `main.py` file:
+3. Run the `PdM_Walkthrough.ipynb` file:
 ```css
-python main.py
+jupyter notebook
 ```
 ## Funding
 This project was funded by The Federal Ministry for Economic Affairs and Climate Action (BMWK).
