@@ -322,36 +322,55 @@ class Pipe:
         alpha = (11.4 + (temperature/129))*10**-6 # (1/K)
         return alpha
     
-    def fatigue(self, *time_series):
-        """Thermal-Fatigue analysis of exerted stress by temperature changes."""
+    def fatigue(self, *time_series, pseudo=True, reference_delta_T=110):
+        """Thermal-Fatigue analysis of exerted stress by temperature changes.
+        
+        Args:
+            time_series: A temperature time series (only first is used).
+            pseudo (bool): If True, apply pseudo-stress calibration (EN 253 style).
+        """
         if self.counts == 0:
             if not time_series:
                 return print("Please pass a time series to method!")
             else:
                 self.cycle_count(time_series[0])
-                
         else:
             pass
-        count = [ count[1] for count in self.counts ]
-        delta_T = [ count[0] for count in self.counts ]
+
+        count = [count[1] for count in self.counts]
+        delta_T = [count[0] for count in self.counts]
         delta_s = []
-        # Calculate stress at elevated temperature for P2365GH
-        # according to DIN EN 13941-1:2019-12 4.4.2
+
+        # Calculate stress at elevated temperature
         for i in delta_T:
             T = i + self.temperatur_BG - 10
-            delta_s += [(self.thermal_expansion_coefficient(T) *
-                           self.elastic_modulus(T)*i)] # (MPa)
+            stress = (self.thermal_expansion_coefficient(T) *
+                    self.elastic_modulus(T) * i)
+            delta_s.append(stress)  # (MPa)
+
+        # === Pseudo-Stress Calibration (if enabled) ===
+        if pseudo:
+            # Reference conditions from EN 253
+            pseudo_stress_ref = 5000 * 100**-0.25
+            # Actual stress for reference ΔT
+            sigma_actual_ref = self.thermal_expansion_coefficient(reference_delta_T) * self.elastic_modulus(reference_delta_T) * reference_delta_T
+
+            calibration_factor = pseudo_stress_ref / sigma_actual_ref
+            delta_s = [calibration_factor * s for s in delta_s]
+
+        # Fatigue damage calculation using Ni = (5000 / sigma)^4
+        ni_Ni = []
+        for ni, si in zip(count, delta_s):
+            Ni = (5000 / si)**4
+            ni_Ni.append(ni / Ni)
+
+        # Store results
         self.count = count
         self.delta_T = delta_T
         self.delta_s = delta_s
-        
-        ni_Ni = []
-        for ni,si in zip(self.count, self.delta_s):
-            Ni = (5000/si)**4
-            ni_Ni += [ni/Ni]
-
         self.fatigue_magnitude = sum(ni_Ni)
-        return self.delta_s, self.fatigue_magnitude  
+
+        return self.delta_s, self.fatigue_magnitude
             
     def evaluate(self, network, optimizer=None, binsize=1):
         """Evaluate damage history and the statuse quo of the pipe."""
